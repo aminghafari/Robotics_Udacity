@@ -31,6 +31,23 @@ def color_thresh_obstacle(img, rgb_thresh=(100, 100, 100)):
     # Return the binary image
     return color_select
 
+# Rock detector
+def color_thresh_rock(img, rgb_thresh=(100, 100, 50)):
+    # Create an array of zeros same xy size as img, but single channel
+    color_select = np.zeros_like(img[:,:,0])
+    # Require that each pixel be above all three threshold values in RGB
+    # above_thresh will now contain a boolean array with "True"
+    # where threshold was met
+    above_thresh = (img[:,:,0] > rgb_thresh[0]) \
+                & (img[:,:,1] > rgb_thresh[1]) \
+                & (img[:,:,2] < rgb_thresh[2]) \
+                & (img[:,:,0]/img[:,:,0] >.9)  \
+                & (img[:,:,0]/img[:,:,0] <1.1)
+    # Index the array of zeros with the boolean array and set to 1
+    color_select[above_thresh] = 1
+    # Return the binary image
+    return color_select
+
 # Define a function to convert from image coords to rover coords
 def rover_coords(binary_img):
     # Identify nonzero pixels
@@ -98,7 +115,11 @@ def perception_step(Rover):
     # TODO: 
     # NOTE: camera image is coming to you in Rover.img
     # 1) Define source and destination points for perspective transform
-    
+    source = np.float32([[14, 140], [301 ,140],[200, 96], [118, 96]])
+    destination = np.float32([[img.shape[1]/2 - dst_size, img.shape[0] - bottom_offset],
+                              [img.shape[1]/2 + dst_size, img.shape[0] - bottom_offset],
+                              [img.shape[1]/2 + dst_size, img.shape[0] - bottom_offset - 2*dst_size],
+                              [img.shape[1]/2 - dst_size, img.shape[0] - bottom_offset - 2*dst_size]])
     # 2) Apply perspective transform
     # 3) Apply color threshold to identify navigable terrain/obstacles/rock samples
     # 4) Update Rover.vision_image (this will be displayed on left side of screen)
