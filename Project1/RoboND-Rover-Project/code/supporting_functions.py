@@ -93,21 +93,21 @@ def create_output_images(Rover):
       # to confirm whether detections are real
       samples_located = 0
       if rock_world_pos[0].any():
-            
             rock_size = 2
             for idx in range(len(Rover.samples_pos[0])):
-                  test_rock_x = Rover.samples_pos[0][idx]
-                  test_rock_y = Rover.samples_pos[1][idx]
-                  rock_sample_dists = np.sqrt((test_rock_x - rock_world_pos[1])**2 + \
+                test_rock_x = Rover.samples_pos[0][idx]
+                test_rock_y = Rover.samples_pos[1][idx]
+                rock_sample_dists = np.sqrt((test_rock_x - rock_world_pos[1])**2 + \
                                         (test_rock_y - rock_world_pos[0])**2)
                   # If rocks were detected within 3 meters of known sample positions
                   # consider it a success and plot the location of the known
                   # sample on the map
-                  if np.min(rock_sample_dists) < 3:
-                        samples_located += 1
-                        map_add[test_rock_y-rock_size:test_rock_y+rock_size, 
-                        test_rock_x-rock_size:test_rock_x+rock_size, :] = 255
-
+                print(np.min(rock_sample_dists))
+                if np.min(rock_sample_dists) < 3:
+                    samples_located += 1
+                    map_add[test_rock_y-rock_size:test_rock_y+rock_size, 
+                    test_rock_x-rock_size:test_rock_x+rock_size, :] = 255
+                    
       # Calculate some statistics on the map results
       # First get the total number of pixels in the navigable terrain map
       tot_nav_pix = np.float(len((plotmap[:,:,2].nonzero()[0])))
