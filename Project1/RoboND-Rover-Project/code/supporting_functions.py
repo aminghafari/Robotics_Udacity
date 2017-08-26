@@ -102,7 +102,6 @@ def create_output_images(Rover):
                   # If rocks were detected within 3 meters of known sample positions
                   # consider it a success and plot the location of the known
                   # sample on the map
-                print(np.min(rock_sample_dists))
                 if np.min(rock_sample_dists) < 3:
                     samples_located += 1
                     map_add[test_rock_y-rock_size:test_rock_y+rock_size, 
