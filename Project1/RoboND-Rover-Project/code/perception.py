@@ -110,6 +110,11 @@ def perception_step(Rover):
                               [size_1/2 + dst_size, size_0 - bottom_offset],
                               [size_1/2 + dst_size, size_0 - bottom_offset - 2*dst_size],
                               [size_1/2 - dst_size, size_0 - bottom_offset - 2*dst_size]])
+    source1 = np.float32([[14, 140], [301 ,140],[14, 96], [201, 96]])
+    destination1 = np.float32([[size_1/2 - dst_size, size_0 - bottom_offset],
+                              [size_1/2 + dst_size, size_0 - bottom_offset],
+                              [size_1/2 + dst_size, size_0 - bottom_offset - dst_size/5],
+                              [size_1/2 - dst_size, size_0 - bottom_offset - dst_size/5]])
     # 2) Apply perspective transform
     warped = perspect_transform(Rover.img, source, destination)
     # 3) Apply color threshold to identify navigable terrain/obstacles/rock samples
@@ -145,9 +150,7 @@ def perception_step(Rover):
     
     # 7) Update Rover worldmap (to be displayed on right side of screen)
         Rover.worldmap[obstacle_y_world, obstacle_x_world, 0] += 1
-    
-        Rover.worldmap[rock_x_world, rock_y_world, 1] += 1
-    
+        Rover.worldmap[rock_y_world, rock_x_world, 1] += 1
         Rover.worldmap[navigable_y_world, navigable_x_world, 2] += 1
     
     
