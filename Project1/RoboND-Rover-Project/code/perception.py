@@ -110,11 +110,6 @@ def perception_step(Rover):
                               [size_1/2 + dst_size, size_0 - bottom_offset],
                               [size_1/2 + dst_size, size_0 - bottom_offset - 2*dst_size],
                               [size_1/2 - dst_size, size_0 - bottom_offset - 2*dst_size]])
-    source1 = np.float32([[14, 140], [301 ,140],[14, 96], [201, 96]])
-    destination1 = np.float32([[size_1/2 - dst_size, size_0 - bottom_offset],
-                              [size_1/2 + dst_size, size_0 - bottom_offset],
-                              [size_1/2 + dst_size, size_0 - bottom_offset - dst_size/5],
-                              [size_1/2 - dst_size, size_0 - bottom_offset - dst_size/5]])
     # 2) Apply perspective transform
     warped = perspect_transform(Rover.img, source, destination)
     # 3) Apply color threshold to identify navigable terrain/obstacles/rock samples
@@ -140,7 +135,7 @@ def perception_step(Rover):
     xpix_obstc, ypix_obstc = rover_coords(threshed_obstacle)
     xpix_rock, ypix_rock = rover_coords(threshed_rock)
     # 6) Convert rover-centric pixel values to world coordinates
-    if(np.abs(Rover.pitch)<180/np.pi*20 and np.abs(Rover.roll)<180/np.pi*20):
+    if(np.abs(Rover.pitch)<180/np.pi*20 and np.abs(Rover.roll)<180/np.pi*20) and Rover.mode == 'forward':
         navigable_x_world, navigable_y_world = pix_to_world(xpix_navig, ypix_navig, Rover.pos[0], Rover.pos[1], Rover.yaw, Rover.worldmap.shape[0], scale)
     
         obstacle_x_world, obstacle_y_world = pix_to_world(xpix_obstc, ypix_obstc, Rover.pos[0], Rover.pos[1], Rover.yaw, Rover.worldmap.shape[0], scale)
@@ -152,11 +147,15 @@ def perception_step(Rover):
         Rover.worldmap[obstacle_y_world, obstacle_x_world, 0] += 1
         Rover.worldmap[rock_y_world, rock_x_world, 1] += 1
         Rover.worldmap[navigable_y_world, navigable_x_world, 2] += 1
+        
+        Rover.worldmap[Rover.worldmap[:,:,0]<Rover.worldmap[:,:,2], 0] = 0
     
     
     # 8) Convert rover-centric pixel positions to polar coordinates
     # Update Rover pixel distances and angles
     Rover.nav_dists, Rover.nav_angles = to_polar_coords(xpix_navig, ypix_navig)
+    #
+    Rover.rock_dists, Rover.rock_angles = to_polar_coords(xpix_rock, ypix_rock)
     
  
     
