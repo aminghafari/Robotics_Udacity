@@ -54,7 +54,7 @@ class RoverState():
         self.ground_truth = ground_truth_3d # Ground truth worldmap
         self.mode = 'forward' # Current mode (can be forward or stop)
         self.throttle_set = 0.2 # Throttle setting when accelerating
-        self.brake_set = 2 # Brake setting when braking
+        self.brake_set = 10 # Brake setting when braking
         # The stop_forward and go_forward fields below represent total count
         # of navigable terrain pixels.  This is a very crude form of knowing
         # when you can keep going and when you should stop.  Feel free to
@@ -81,7 +81,15 @@ class RoverState():
         ## extras
         self.rock_angles = None
         self.rock_dists = None
+        self.obstc_angles = None
+        self.obstc_dists = None
         self.rock_dir = 1
+        self.time_passed = 0
+        self.pos1 = [0,0]
+        self.pos2 = [0,0]
+        self.yaw_stcuk = 0
+        self.pos_stcuk = 0
+        self.time_home = 0
 # Initialize our rover 
 Rover = RoverState()
 
