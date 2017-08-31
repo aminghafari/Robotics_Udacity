@@ -135,7 +135,7 @@ def perception_step(Rover):
     xpix_obstc, ypix_obstc = rover_coords(threshed_obstacle)
     xpix_rock, ypix_rock = rover_coords(threshed_rock)
     # 6) Convert rover-centric pixel values to world coordinates
-    if ((np.abs(Rover.pitch)<1 or np.abs(Rover.pitch)>359)) and ((np.abs(Rover.roll)<1 or np.abs(Rover.roll)>359)) and (Rover.mode == 'forward'):
+    if ((np.abs(Rover.pitch)<1 or np.abs(Rover.pitch)>359)) and ((np.abs(Rover.roll)<1 or np.abs(Rover.roll)>359)) and (Rover.mode == 'forward' or Rover.picking_up):
         navigable_x_world, navigable_y_world = pix_to_world(xpix_navig, ypix_navig, Rover.pos[0], Rover.pos[1], Rover.yaw, Rover.worldmap.shape[0], scale)
     
         obstacle_x_world, obstacle_y_world = pix_to_world(xpix_obstc, ypix_obstc, Rover.pos[0], Rover.pos[1], Rover.yaw, Rover.worldmap.shape[0], scale)
