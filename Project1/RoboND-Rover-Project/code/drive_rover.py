@@ -79,17 +79,16 @@ class RoverState():
         self.send_pickup = False # Set to True to trigger rock pickup
         
         ## extras
-        self.rock_angles = None
+        
+        self.rock_angles = None # To locate the rock
         self.rock_dists = None
-        self.obstc_angles = None
-        self.obstc_dists = None
-        self.rock_dir = 1
-        self.time_passed = 0
-        self.pos1 = [0,0]
-        self.pos2 = [0,0]
-        self.yaw_stcuk = 0
-        self.pos_stcuk = 0
-        self.time_home = 0
+        self.rock_dir = 1 # To find the direction to turn in order to find the rock
+        self.time_passed = 0 # To find out if the rover is stuck
+        self.pos1 = [0,0] # To store the postion of the stuck 
+        self.pos2 = [0,0] # To store the postion of the stuck 
+        self.yaw_stcuk = 0 # To store the yaw angle of the stuck 
+        self.pos_stcuk = 0 # To store the yaw angle of the stuck 
+        self.time_home = 0 # to reroute toward the home
 # Initialize our rover 
 Rover = RoverState()
 

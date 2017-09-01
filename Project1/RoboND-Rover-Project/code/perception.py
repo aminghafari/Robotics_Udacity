@@ -135,29 +135,30 @@ def perception_step(Rover):
     xpix_obstc, ypix_obstc = rover_coords(threshed_obstacle)
     xpix_rock, ypix_rock = rover_coords(threshed_rock)
     # 6) Convert rover-centric pixel values to world coordinates
+    
+    ## Do it if the roll and pitch angle are small and rover is in the forward mode
+    # This will help to a better mapping with higher fidelity
     if ((np.abs(Rover.pitch)<1 or np.abs(Rover.pitch)>359)) and ((np.abs(Rover.roll)<1 or np.abs(Rover.roll)>359)) and (Rover.mode == 'forward' or Rover.picking_up):
         navigable_x_world, navigable_y_world = pix_to_world(xpix_navig, ypix_navig, Rover.pos[0], Rover.pos[1], Rover.yaw, Rover.worldmap.shape[0], scale)
     
         obstacle_x_world, obstacle_y_world = pix_to_world(xpix_obstc, ypix_obstc, Rover.pos[0], Rover.pos[1], Rover.yaw, Rover.worldmap.shape[0], scale)
     
-        rock_x_world, rock_y_world = pix_to_world(xpix_rock, ypix_rock, Rover.pos[0], Rover.pos[1], Rover.yaw, Rover.worldmap.shape[0], scale)
+        
     
     
     # 7) Update Rover worldmap (to be displayed on right side of screen)
         Rover.worldmap[obstacle_y_world, obstacle_x_world, 0] += 1
-        Rover.worldmap[rock_y_world, rock_x_world, 1] += 1
         Rover.worldmap[navigable_y_world, navigable_x_world, 2] += 1
         
         Rover.worldmap[Rover.worldmap[:,:,0]<Rover.worldmap[:,:,2], 0] = 0
     
-    
+    rock_x_world, rock_y_world = pix_to_world(xpix_rock, ypix_rock, Rover.pos[0], Rover.pos[1], Rover.yaw, Rover.worldmap.shape[0], scale)
+    Rover.worldmap[rock_y_world, rock_x_world, 1] += 1
     # 8) Convert rover-centric pixel positions to polar coordinates
     # Update Rover pixel distances and angles
     Rover.nav_dists, Rover.nav_angles = to_polar_coords(xpix_navig, ypix_navig)
     #
     Rover.rock_dists, Rover.rock_angles = to_polar_coords(xpix_rock, ypix_rock)
-    
-    Rover.obstc_dists, Rover.obstc_angles =  to_polar_coords(xpix_obstc, ypix_obstc)
     
     
     return Rover
