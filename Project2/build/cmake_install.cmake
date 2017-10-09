@@ -117,6 +117,9 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/robond/Robotics_Udacity_NanoDegree/Project2/build/gtest/cmake_install.cmake")
+  include("/home/robond/Robotics_Udacity_NanoDegree/Project2/build/RoboND-Kinematics-Project/gazebo_grasp_plugin/cmake_install.cmake")
+  include("/home/robond/Robotics_Udacity_NanoDegree/Project2/build/RoboND-Kinematics-Project/kuka_arm/cmake_install.cmake")
+  include("/home/robond/Robotics_Udacity_NanoDegree/Project2/build/RoboND-Kinematics-Project/kr210_claw_moveit/cmake_install.cmake")
 
 endif()
 

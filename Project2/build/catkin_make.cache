@@ -1,2 +1,2 @@
-
+RoboND-Kinematics-Project/gazebo_grasp_plugin:RoboND-Kinematics-Project/kr210_claw_moveit:RoboND-Kinematics-Project/kuka_arm
 -DCATKIN_DEVEL_PREFIX=/home/robond/Robotics_Udacity_NanoDegree/Project2/devel -DCMAKE_INSTALL_PREFIX=/home/robond/Robotics_Udacity_NanoDegree/Project2/install -G Unix Makefiles
