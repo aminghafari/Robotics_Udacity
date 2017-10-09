@@ -1,8 +1,0 @@
-prefix=/home/robond/Robotics_Udacity_NanoDegree/Project2/install
-
-Name: kuka_arm
-Description: Description of kuka_arm
-Version: 0.0.0
-Cflags: -I/home/robond/Robotics_Udacity_NanoDegree/Project2/install/include
-Libs: -L/home/robond/Robotics_Udacity_NanoDegree/Project2/install/lib 
-Requires: 
