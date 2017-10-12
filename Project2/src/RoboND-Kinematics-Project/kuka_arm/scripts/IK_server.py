@@ -30,12 +30,12 @@ def handle_calculate_IK(req):
         # Create symbols
 	q1, q2, q3, q4, q5, q6, q7 = symbols('q1:8')
 	d1, d2, d3, d4, d5, d6, d7 = symbols('d1:8')
-	a1, a2, a3, a4, a5, a6, a7 = symbols('a0:7')
-	alpha1, alpha2, alpha3, alpha4, alpha5, alpha6, alpha7 = symbols('alpha0:7')
+	a0, a1, a2, a3, a4, a5, a6 = symbols('a0:7')
+	alpha0, alpha1, alpha2, alpha3, alpha4, alpha5, alpha6 = symbols('alpha0:7')
 	#   
 	# Create Modified DH parameters
 	s = {alpha0:     0, a0:     0, d1: 0.75,
-             alpha1: -pi/2, a1:  0.35, d2:    0, q2: q2-pi/2,
+             alpha1: -pi/2, a1:  0.35, d2:    0, q2: q2-pi/2.,
              alpha2:     0, a2:  1.25, d3:    0,
              alpha3: -pi/2, a3:-0.054, d4:  1.5,
              alpha4:  pi/2, a4:     0, d5:    0,
@@ -96,18 +96,15 @@ def handle_calculate_IK(req):
         T0_6 = simplify( T0_5 * T5_6)
         T0_G = simplify( T0_6 * T6_G)
 
+        print("T0_1 = ", T0_1.evalf(subs={q1:0, q2:0, q3:0, q4:0, q5:0, q6:0}))
+        print("T0_2 = ", T0_2.evalf(subs={q1:0, q2:0, q3:0, q4:0, q5:0, q6:0}))
+        print("T0_3 = ", T0_3.evalf(subs={q1:0, q2:0, q3:0, q4:0, q5:0, q6:0}))
+        print("T0_4 = ", T0_4.evalf(subs={q1:0, q2:0, q3:0, q4:0, q5:0, q6:0}))
+        print("T0_5 = ", T0_5.evalf(subs={q1:0, q2:0, q3:0, q4:0, q5:0, q6:0}))
+        print("T0_6 = ", T0_6.evalf(subs={q1:0, q2:0, q3:0, q4:0, q5:0, q6:0}))
 	# Extract rotation matrices from the transformation matrices
 	#
-        R_z = Matrix([[     cos(np.pi), -sin(np.pi),           0,           0],
-                       [    sin(np.pi),  cos(np.pi),           0,           0],
-                       [             0,           0,           1,           0],
-                       [             0,           0,           0,           1]])
-
-        R_y = Matrix([[      cos(-np.pi/2),            0, sin(-np.pi/2),           0],
-                       [                 0,            1,             0,           0],
-                       [    -sin(-np.pi/2),            0, cos(-np.pi/2),           0],
-                       [                 0,            0,             0,           1]])
-        R_corr = simplify(R_z * R_y)
+        
 	#
         T_total = simplify(T0_G* R_corr)
 	#
@@ -133,6 +130,22 @@ def handle_calculate_IK(req):
             ### Your IK code here 
 	    # Compensate for rotation discrepancy between DH parameters and Gazebo
 	    #
+            rx, ry, rx = symbols('rx ry rz')
+            R_x = Matrix([[       1,        0,        0],
+                          [       0,  cos(rx), -sin(rx),],
+                          [       0,  sin(rx),  cos(rx),]])
+
+            R_y = Matrix([[  cos(ry),        0, sin(ry)],
+                          [        0,        1,       0],
+                          [ -sin(ry),        0, cos(ry)]])
+
+            R_z = Matrix([[ cos(rz), -sin(rz),        0],
+                          [ sin(rz),  cos(rz),        0],
+                          [       0,        0,        1]])
+
+            R_corr = R_z.subs(rz, np.pi)*R_y.subs(ry, -np.pi/2)
+            
+            R_EE = R_z.sub(rz, yaw)*R_y.sub(ry, pitch)*R_x.sub(rx, roll)*R_corr
 	    #
 	    # Calculate joint angles using Geometric IK method
 	    #
