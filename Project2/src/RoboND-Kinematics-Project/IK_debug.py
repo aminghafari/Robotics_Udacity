@@ -95,7 +95,7 @@ def test_code(test_case):
 
     Gr = Matrix([[px],[py],[pz]])
     
-    WC = Gr - 0.303*R_G[:,2]
+    Wr = Gr - 0.303*R_G[:,2]
 
     theta1 = 0
     theta2 = 0
@@ -118,7 +118,13 @@ def test_code(test_case):
     alpha0, alpha1, alpha2, alpha3, alpha4, alpha5, alpha6 = symbols('alpha0:7')
     #   
     # Create Modified DH parameters
-    s = {alpha0:     0, a0:     0, d1: 0.75,alpha1: -pi/2., a1:  0.35, d2:    0, q2: q2-pi/2., alpha2:     0, a2:  1.25, d3:    0, alpha3: -pi/2., a3:-0.054, d4:  1.5, alpha4:  pi/2, a4:     0, d5:    0, alpha5:  pi/2., a5:     0, d6:    0, alpha6:     0, a6:     0, d7: 0.303, q7: 0}
+    s = {alpha0:      0, a0:     0, d1: 0.75,
+         alpha1: -pi/2., a1:  0.35, d2:    0, q2: q2-pi/2.,
+         alpha2:      0, a2:  1.25, d3:    0,
+         alpha3: -pi/2., a3:-0.054, d4:  1.5,
+         alpha4:   pi/2, a4:     0, d5:    0,
+         alpha5:  pi/2., a5:     0, d6:    0,
+         alpha6:      0, a6:     0, d7: 0.303, q7: 0}
     #            
     # Define Modified DH Transformation matrix
     #
@@ -147,10 +153,28 @@ def test_code(test_case):
     ## End your code input for forward kinematics here!
     ########################################################################################
 
+    ########################################################################################
+    # Thetas
+    # theta1
+    theta1 = atan2(Wr[1], Wr[0])
+
+    # theta 2 & 3
+    d_A = 1.5009
+    d_B = sqrt( pow( sqrt( pow(Wr[0],2) + pow(Wr[1],2) ) - 0.35 ,2) + pow(Wr[2] - 0.75,2) )
+    d_C = 1.25
+
+    a_A = acos( (d_B*d_B + d_C*d_C - d_A*d_A)/(2*d_B*d_C) )
+    a_B = acos( (d_A*d_A + d_C*d_C - d_B*d_B)/(2*d_A*d_C) )
+    a_C = acos( (d_B*d_B + d_A*d_A - d_C*d_C)/(2*d_B*d_A) )
+
+    theta2 = pi/2 - a_A - atan2(Wr[2]-0.75, sqrt( pow(Wr[0],2) + pow(Wr[1],2) ) - 0.35)
+    theta3 = pi/2 - a_B - atan2(0.054, 1.5)
+    ########################################################################################
+
+
     ## For error analysis please set the following variables of your WC location and EE location in the format of [x,y,z]
-    your_wc = WC # <--- Load your calculated WC values in this array
-    your_ee = WC # <--- Load your calculated end effector value from your forward kinematics
-    print(your_wc)
+    your_wc = Wr # <--- Load your calculated WC values in this array
+    your_ee = Wr # <--- Load your calculated end effector value from your forward kinematics
     ########################################################################################
 
     ## Error analysis
