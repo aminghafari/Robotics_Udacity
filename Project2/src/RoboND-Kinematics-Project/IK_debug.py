@@ -89,13 +89,13 @@ def test_code(test_case):
 
     R_corr = R_z.subs(rz, radians(180))*R_y.subs(ry, -radians(90))
 
-    R_G = R_z*R_y*R_x*R_corr
-    R_G = R_G.subs({'rx' : roll, 'ry' : pitch, 'rz': yaw})
+    R_E = R_z*R_y*R_x*R_corr
+    R_E = R_E.subs({'rx' : roll, 'ry' : pitch, 'rz': yaw})
 
 
     Gr = Matrix([[px],[py],[pz]])
     
-    Wr = Gr - 0.303*R_G[:,2]
+    Wr = Gr - 0.303*R_E[:,2]
 
     theta1 = 0
     theta2 = 0
@@ -123,7 +123,7 @@ def test_code(test_case):
          alpha2:      0, a2:  1.25, d3:    0,
          alpha3: -pi/2., a3:-0.054, d4:  1.5,
          alpha4:   pi/2, a4:     0, d5:    0,
-         alpha5:  pi/2., a5:     0, d6:    0,
+         alpha5: -pi/2., a5:     0, d6:    0,
          alpha6:      0, a6:     0, d7: 0.303, q7: 0}
     #            
     # Define Modified DH Transformation matrix
@@ -132,7 +132,7 @@ def test_code(test_case):
         T = Matrix([[             cos(q),            -sin(q),            0,              a],
                        [ sin(q)*cos(alpha), cos(q)*cos(alpha), -sin(alpha), -sin(alpha)*d],
                        [ sin(q)*sin(alpha), cos(q)*sin(alpha),  cos(alpha),  cos(alpha)*d],
-                       [                   0,                   0,            0,               1]])
+                       [                 0,                 0,           0,             1]])
 
         return T
 
@@ -169,12 +169,22 @@ def test_code(test_case):
 
     theta2 = pi/2 - a_A - atan2(Wr[2]-0.75, sqrt( pow(Wr[0],2) + pow(Wr[1],2) ) - 0.35)
     theta3 = pi/2 - a_B - atan2(0.054, 1.5)
+
+    # theta 4-5-6
+    R0_3 = T0_1[0:3,0:3] * T1_2[0:3,0:3] * T2_3[0:3,0:3]
+    R0_3 = R0_3.evalf(subs={q1 :theta1, q2 : theta2, q3 : theta3})
+
+    R3_6 = R0_3.inv("LU")* R_E
+
+    theta4 = atan2(R3_6[2,2], - R3_6[0,2])
+    theta5 = atan2(sqrt(R3_6[2,2]*R3_6[2,2] + R3_6[0,2]*R3_6[0,2]), R3_6[1,2])
+    theta6 = atan2(-R3_6[1,1], R3_6[1,0])
     ########################################################################################
 
-
+    EE = T0_G.evalf(subs = {q1:theta1, q2:theta2, q3:theta3, q4:theta4, q5:theta5, q6:theta6})
     ## For error analysis please set the following variables of your WC location and EE location in the format of [x,y,z]
     your_wc = Wr # <--- Load your calculated WC values in this array
-    your_ee = Wr # <--- Load your calculated end effector value from your forward kinematics
+    your_ee = [EE[0,3],EE[1,3],EE[2,3]] # <--- Load your calculated end effector value from your forward kinematics
     ########################################################################################
 
     ## Error analysis
