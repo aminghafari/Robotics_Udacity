@@ -44,6 +44,7 @@ def handle_calculate_IK(req):
         #            
         # Define Modified DH Transformation matrix
         #
+        # a function for the matrix
         def T_Mat(q, d, a, alpha):
             T = Matrix([[            cos(q),           -sin(q),           0,             a],
                         [ sin(q)*cos(alpha), cos(q)*cos(alpha), -sin(alpha), -sin(alpha)*d],
@@ -52,6 +53,9 @@ def handle_calculate_IK(req):
 
             return T
 
+
+        #
+        # Create individual transformation matrices
         T0_1 = T_Mat(q1, d1, a0, alpha0).subs(s)
         T1_2 = T_Mat(q2, d2, a1, alpha1).subs(s)
         T2_3 = T_Mat(q3, d3, a2, alpha2).subs(s)
@@ -59,15 +63,13 @@ def handle_calculate_IK(req):
         T4_5 = T_Mat(q5, d5, a4, alpha4).subs(s)
         T5_6 = T_Mat(q6, d6, a5, alpha5).subs(s)
         T6_G = T_Mat(q7, d7, a6, alpha6).subs(s)
-
-        #
-        # Create individual transformation matrices
         #
         #
         T0_G = T0_1 * T1_2 * T2_3 * T3_4 * T4_5 * T5_6 * T6_G
         ###
 
-        ### PArt of IK
+        ### Part of IK
+        # Rotation matrices for roll pitch and yaw angles
         rx, ry, rz = symbols('rx ry rz')
         R_x = Matrix([[       1,        0,        0],
                       [       0,  cos(rx), -sin(rx),],
@@ -81,8 +83,10 @@ def handle_calculate_IK(req):
                       [ sin(rz),  cos(rz),        0],
                       [       0,        0,        1]])
 
+        # Compensate for rotation discrepancy between DH parameters and Gazebo
         R_corr = R_z.subs(rz, radians(180))*R_y.subs(ry, -radians(90))
 
+        # Rotation matrix as a function of roll, pitch and yaw angle from the calculations
         R_E = R_z*R_y*R_x*R_corr
 
         # Initialize service response
@@ -103,8 +107,7 @@ def handle_calculate_IK(req):
                     req.poses[x].orientation.z, req.poses[x].orientation.w])
      
             ### Your IK code here 
-	    # Compensate for rotation discrepancy between DH parameters and Gazebo
-	    #
+	    # Calculating the Gripper rotation from the given angles
             R_E = R_E.subs({'rx' : roll, 'ry' : pitch, 'rz': yaw})
 
 
@@ -117,23 +120,28 @@ def handle_calculate_IK(req):
 	    theta1 = atan2(Wr[1], Wr[0])
 
             # theta 2 & 3
+            # length of the triangle sides
             d_A = 1.5009
             d_B = sqrt( pow( sqrt( pow(Wr[0],2) + pow(Wr[1],2) ) - 0.35 ,2) + pow(Wr[2] - 0.75,2) )
             d_C = 1.25
 
+            # angles of the triangle
             a_A = acos( (d_B*d_B + d_C*d_C - d_A*d_A)/(2*d_B*d_C) )
             a_B = acos( (d_A*d_A + d_C*d_C - d_B*d_B)/(2*d_A*d_C) )
             a_C = acos( (d_B*d_B + d_A*d_A - d_C*d_C)/(2*d_B*d_A) )
 
+            # theta 2 & 3
             theta2 = pi/2 - a_A - atan2(Wr[2]-0.75, sqrt( pow(Wr[0],2) + pow(Wr[1],2) ) - 0.35)
             theta3 = pi/2 - a_B - atan2(0.054, 1.5)
 
             # theta 4-5-6
+            # rotation matrix from 3 to the gripper
             R0_3 = T0_1[0:3,0:3] * T1_2[0:3,0:3] * T2_3[0:3,0:3]
             R0_3 = R0_3.evalf(subs={q1 :theta1, q2 : theta2, q3 : theta3})
 
             R3_6 = R0_3.inv("LU")* R_E
 
+            # find the angles using the euler transformation
             theta4 = atan2(R3_6[2,2], - R3_6[0,2])
             theta5 = atan2(sqrt(R3_6[2,2]*R3_6[2,2] + R3_6[0,2]*R3_6[0,2]), R3_6[1,2])
             theta6 = atan2(-R3_6[1,1], R3_6[1,0])
