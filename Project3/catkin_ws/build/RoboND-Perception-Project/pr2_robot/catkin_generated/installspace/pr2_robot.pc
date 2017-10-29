@@ -1,0 +1,8 @@
+prefix=/home/robond/Robotics_Udacity_NanoDegree/Project3/catkin_ws/install
+
+Name: pr2_robot
+Description: Description of pr2_robot
+Version: 0.0.0
+Cflags: -I/home/robond/Robotics_Udacity_NanoDegree/Project3/catkin_ws/install/include
+Libs: -L/home/robond/Robotics_Udacity_NanoDegree/Project3/catkin_ws/install/lib 
+Requires: 
