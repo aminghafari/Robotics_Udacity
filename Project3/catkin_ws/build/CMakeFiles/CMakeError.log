@@ -1,22 +1,22 @@
 Determining if the pthread_create exist failed with the following output:
 Change Dir: /home/robond/Robotics_Udacity_NanoDegree/Project3/catkin_ws/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_e7138/fast"
-/usr/bin/make -f CMakeFiles/cmTC_e7138.dir/build.make CMakeFiles/cmTC_e7138.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_d64d4/fast"
+/usr/bin/make -f CMakeFiles/cmTC_d64d4.dir/build.make CMakeFiles/cmTC_d64d4.dir/build
 make[1]: Entering directory '/home/robond/Robotics_Udacity_NanoDegree/Project3/catkin_ws/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_e7138.dir/CheckSymbolExists.c.o
-/usr/bin/cc     -o CMakeFiles/cmTC_e7138.dir/CheckSymbolExists.c.o   -c /home/robond/Robotics_Udacity_NanoDegree/Project3/catkin_ws/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
-Linking C executable cmTC_e7138
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e7138.dir/link.txt --verbose=1
-/usr/bin/cc       CMakeFiles/cmTC_e7138.dir/CheckSymbolExists.c.o  -o cmTC_e7138 -rdynamic 
-CMakeFiles/cmTC_e7138.dir/CheckSymbolExists.c.o: In function `main':
+Building C object CMakeFiles/cmTC_d64d4.dir/CheckSymbolExists.c.o
+/usr/bin/cc     -o CMakeFiles/cmTC_d64d4.dir/CheckSymbolExists.c.o   -c /home/robond/Robotics_Udacity_NanoDegree/Project3/catkin_ws/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_d64d4
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d64d4.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTC_d64d4.dir/CheckSymbolExists.c.o  -o cmTC_d64d4 -rdynamic 
+CMakeFiles/cmTC_d64d4.dir/CheckSymbolExists.c.o: In function `main':
 CheckSymbolExists.c:(.text+0x16): undefined reference to `pthread_create'
 collect2: error: ld returned 1 exit status
-CMakeFiles/cmTC_e7138.dir/build.make:97: recipe for target 'cmTC_e7138' failed
-make[1]: *** [cmTC_e7138] Error 1
+CMakeFiles/cmTC_d64d4.dir/build.make:97: recipe for target 'cmTC_d64d4' failed
+make[1]: *** [cmTC_d64d4] Error 1
 make[1]: Leaving directory '/home/robond/Robotics_Udacity_NanoDegree/Project3/catkin_ws/build/CMakeFiles/CMakeTmp'
-Makefile:126: recipe for target 'cmTC_e7138/fast' failed
-make: *** [cmTC_e7138/fast] Error 2
+Makefile:126: recipe for target 'cmTC_d64d4/fast' failed
+make: *** [cmTC_d64d4/fast] Error 2
 
 File /home/robond/Robotics_Udacity_NanoDegree/Project3/catkin_ws/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
 /* */
@@ -36,20 +36,20 @@ int main(int argc, char** argv)
 Determining if the function pthread_create exists in the pthreads failed with the following output:
 Change Dir: /home/robond/Robotics_Udacity_NanoDegree/Project3/catkin_ws/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_57f15/fast"
-/usr/bin/make -f CMakeFiles/cmTC_57f15.dir/build.make CMakeFiles/cmTC_57f15.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_9617e/fast"
+/usr/bin/make -f CMakeFiles/cmTC_9617e.dir/build.make CMakeFiles/cmTC_9617e.dir/build
 make[1]: Entering directory '/home/robond/Robotics_Udacity_NanoDegree/Project3/catkin_ws/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_57f15.dir/CheckFunctionExists.c.o
-/usr/bin/cc    -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_57f15.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
-Linking C executable cmTC_57f15
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_57f15.dir/link.txt --verbose=1
-/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_57f15.dir/CheckFunctionExists.c.o  -o cmTC_57f15 -rdynamic -lpthreads 
+Building C object CMakeFiles/cmTC_9617e.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_9617e.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
+Linking C executable cmTC_9617e
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9617e.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_9617e.dir/CheckFunctionExists.c.o  -o cmTC_9617e -rdynamic -lpthreads 
 /usr/bin/ld: cannot find -lpthreads
 collect2: error: ld returned 1 exit status
-CMakeFiles/cmTC_57f15.dir/build.make:97: recipe for target 'cmTC_57f15' failed
-make[1]: *** [cmTC_57f15] Error 1
+CMakeFiles/cmTC_9617e.dir/build.make:97: recipe for target 'cmTC_9617e' failed
+make[1]: *** [cmTC_9617e] Error 1
 make[1]: Leaving directory '/home/robond/Robotics_Udacity_NanoDegree/Project3/catkin_ws/build/CMakeFiles/CMakeTmp'
-Makefile:126: recipe for target 'cmTC_57f15/fast' failed
-make: *** [cmTC_57f15/fast] Error 2
+Makefile:126: recipe for target 'cmTC_9617e/fast' failed
+make: *** [cmTC_9617e/fast] Error 2
 
 

@@ -12,7 +12,7 @@ try:
     from catkin.environment_cache import generate_environment_script
 except ImportError:
     # search for catkin package in all workspaces and prepend to path
-    for workspace in "/home/robond/Robotics_Udacity_NanoDegree/Project3/catkin_ws/devel;/home/robond/Robotics_Udacity_NanoDegree/RoboND-Perception-Exercises/Exercise-3/catkin_ws/devel;/home/robond/Robotics_Udacity_NanoDegree/RoboND-Perception-Exercises/Exercise-2/catkin_ws/devel;/home/robond/Robotics_Udacity_NanoDegree/Project2/devel;/opt/ros/kinetic".split(';'):
+    for workspace in "/home/robond/Robotics_Udacity_NanoDegree/RoboND-Perception-Exercises/Exercise-3/catkin_ws/devel;/home/robond/Robotics_Udacity_NanoDegree/RoboND-Perception-Exercises/Exercise-2/catkin_ws/devel;/opt/ros/kinetic".split(';'):
         python_path = os.path.join(workspace, 'lib/python2.7/dist-packages')
         if os.path.isdir(os.path.join(python_path, 'catkin')):
             sys.path.insert(0, python_path)
