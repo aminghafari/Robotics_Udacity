@@ -1,0 +1,2 @@
+RoboND-Controls-Lab/quad_controller
+-DCATKIN_DEVEL_PREFIX=/home/robond/Robotics_Udacity_NanoDegree/quadrotor/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/robond/Robotics_Udacity_NanoDegree/quadrotor/catkin_ws/install -G Unix Makefiles

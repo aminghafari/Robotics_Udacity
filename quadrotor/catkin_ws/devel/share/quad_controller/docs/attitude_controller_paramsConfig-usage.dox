@@ -1,0 +1,22 @@
+\subsubsection usage Usage
+\verbatim
+<node name="attitude_controller" pkg="attitude_controller" type="attitude_controller">
+  <param name="use_dr_set_point" type="bool" value="False" />
+  <param name="roll_set_point" type="double" value="0.0" />
+  <param name="pitch_set_point" type="double" value="0.0" />
+  <param name="yaw_set_point" type="double" value="0.0" />
+  <param name="roll_kp" type="double" value="0.0" />
+  <param name="roll_ki" type="double" value="0.0" />
+  <param name="roll_ki_max" type="double" value="0.0" />
+  <param name="roll_kd" type="double" value="0.0" />
+  <param name="pitch_kp" type="double" value="0.0" />
+  <param name="pitch_ki" type="double" value="0.0" />
+  <param name="pitch_ki_max" type="double" value="0.0" />
+  <param name="pitch_kd" type="double" value="0.0" />
+  <param name="yaw_kp" type="double" value="0.0" />
+  <param name="yaw_ki" type="double" value="0.0" />
+  <param name="yaw_ki_max" type="double" value="0.0" />
+  <param name="yaw_kd" type="double" value="0.0" />
+</node>
+\endverbatim
+

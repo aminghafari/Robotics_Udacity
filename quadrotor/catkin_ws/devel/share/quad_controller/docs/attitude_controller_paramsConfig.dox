@@ -1,0 +1,21 @@
+\subsubsection parameters ROS parameters
+
+Reads and maintains the following parameters on the ROS server
+
+- \b "~use_dr_set_point" : \b [bool] Use dynamic reconfig setpoint min: False, default: False, max: True
+- \b "~roll_set_point" : \b [double] Set Point: X min: -std::numeric_limits<double>::infinity(), default: 0.0, max: std::numeric_limits<double>::infinity()
+- \b "~pitch_set_point" : \b [double] Set Point: Y min: -std::numeric_limits<double>::infinity(), default: 0.0, max: std::numeric_limits<double>::infinity()
+- \b "~yaw_set_point" : \b [double] Set Point: Z min: -std::numeric_limits<double>::infinity(), default: 0.0, max: std::numeric_limits<double>::infinity()
+- \b "~roll_kp" : \b [double] Roll P min: 0.0, default: 0.0, max: 100.0
+- \b "~roll_ki" : \b [double] Roll I min: 0.0, default: 0.0, max: 100.0
+- \b "~roll_ki_max" : \b [double] Roll I Max min: 0.0, default: 0.0, max: 100.0
+- \b "~roll_kd" : \b [double] Roll D min: 0.0, default: 0.0, max: 100.0
+- \b "~pitch_kp" : \b [double] Pitch P min: 0.0, default: 0.0, max: 100.0
+- \b "~pitch_ki" : \b [double] Pitch I min: 0.0, default: 0.0, max: 100.0
+- \b "~pitch_ki_max" : \b [double] Pitch I Max min: 0.0, default: 0.0, max: 100.0
+- \b "~pitch_kd" : \b [double] Pitch D min: 0.0, default: 0.0, max: 100.0
+- \b "~yaw_kp" : \b [double] Yaw P min: 0.0, default: 0.0, max: 100.0
+- \b "~yaw_ki" : \b [double] Yaw I min: 0.0, default: 0.0, max: 100.0
+- \b "~yaw_ki_max" : \b [double] Yaw I Max min: 0.0, default: 0.0, max: 100.0
+- \b "~yaw_kd" : \b [double] Yaw D min: 0.0, default: 0.0, max: 100.0
+

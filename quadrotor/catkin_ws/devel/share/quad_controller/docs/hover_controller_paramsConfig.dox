@@ -1,0 +1,10 @@
+\subsubsection parameters ROS parameters
+
+Reads and maintains the following parameters on the ROS server
+
+- \b "~target" : \b [double] Altitude Target min: 0.0, default: 0.0, max: 100.0
+- \b "~kp" : \b [double] P min: 0.0, default: 0.0, max: 100.0
+- \b "~ki" : \b [double] I min: 0.0, default: 0.0, max: 100.0
+- \b "~ki_max" : \b [double] I Max Windup min: 0.0, default: 0.0, max: 100.0
+- \b "~kd" : \b [double] D min: 0.0, default: 0.0, max: 100.0
+

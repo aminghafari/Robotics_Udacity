@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/robond/Robotics_Udacity_NanoDegree/quadrotor/catkin_ws/devel/setup.sh

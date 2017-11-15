@@ -1,0 +1,21 @@
+\subsubsection parameters ROS parameters
+
+Reads and maintains the following parameters on the ROS server
+
+- \b "~use_dr_set_point" : \b [bool] Use dynamic reconfig setpoint min: False, default: False, max: True
+- \b "~set_point_x" : \b [double] Set Point: X min: -240.0, default: 0.0, max: 240.0
+- \b "~set_point_y" : \b [double] Set Point: Y min: -240.0, default: 0.0, max: 240.0
+- \b "~set_point_z" : \b [double] Set Point: Z min: 0.0, default: 0.0, max: 100.0
+- \b "~x_kp" : \b [double] X P min: 0.0, default: 0.0, max: 100.0
+- \b "~x_ki" : \b [double] X I min: 0.0, default: 0.0, max: 100.0
+- \b "~x_ki_max" : \b [double] X Max Windup min: 0.0, default: 0.0, max: 100.0
+- \b "~x_kd" : \b [double] X D min: 0.0, default: 0.0, max: 100.0
+- \b "~y_kp" : \b [double] Y P min: 0.0, default: 0.0, max: 100.0
+- \b "~y_ki" : \b [double] Y I min: 0.0, default: 0.0, max: 100.0
+- \b "~y_ki_max" : \b [double] Y Max Windup min: 0.0, default: 0.0, max: 100.0
+- \b "~y_kd" : \b [double] Y D min: 0.0, default: 0.0, max: 100.0
+- \b "~z_kp" : \b [double] Z P min: 0.0, default: 0.0, max: 100.0
+- \b "~z_ki" : \b [double] Z I min: 0.0, default: 0.0, max: 100.0
+- \b "~z_ki_max" : \b [double] Z Max Windup min: 0.0, default: 0.0, max: 100.0
+- \b "~z_kd" : \b [double] Z D min: 0.0, default: 0.0, max: 100.0
+
